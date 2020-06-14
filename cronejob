@@ -1,0 +1,2 @@
+30 5 * * 3     /entrypoint.sh "${username}" "${password}" "${mailadresses}"
+### important empty file
