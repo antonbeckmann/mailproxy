@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 
-ADD ./ssmtp.conf /etc/ssmtp/ssmtp.conf
+#ADD ./ssmtp.conf /etc/ssmtp/ssmtp.conf
 ADD entrypoint.sh entrypoint.sh
 RUN chmod 0744 /entrypoint.sh
 
