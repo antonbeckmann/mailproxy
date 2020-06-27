@@ -1,0 +1,2 @@
+30 6 * * * /entrypoint.sh > /proc/1/fd/1 2>/proc/1/fd/2
+
