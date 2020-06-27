@@ -1,14 +1,13 @@
 FROM ubuntu:18.04
 
+RUN apt-get update && apt-get -y install cron
 
-#ADD ./ssmtp.conf /etc/ssmtp/ssmtp.conf
-ADD entrypoint.sh entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
+
 RUN chmod 0744 /entrypoint.sh
 
-RUN apt-get update && apt-get install -y ssmtp curl cron
-
 # Copy hello-cron file to the cron.d directory
-COPY cronejob /etc/cron.d/hello-cron
+COPY hello-cron /etc/cron.d/hello-cron
 
 # Give execution rights on the cron job
 RUN chmod 0644 /etc/cron.d/hello-cron
