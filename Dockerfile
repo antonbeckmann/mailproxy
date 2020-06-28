@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-RUN apt-get update && apt-get -y install cron
+RUN apt-get update && apt-get -y install cron curl ssmtp
 
 COPY entrypoint.sh /entrypoint.sh
 
