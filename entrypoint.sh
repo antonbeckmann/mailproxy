@@ -3,17 +3,18 @@
 #username="$1"
 #password="$2"
 #mailaddresses="$3"
-echo
+echo send @ $(date) to "$mailaddresses"
 
 
-iparray=($(curl -u $username:$password --silent "https://mail.google.com/mail/feed/atom" |  grep -oPm1 "(?<=<title>)[^<]+" | sed '1d')) 
+iparray=($(curl -u $username:$password --silent "https://mail.google.com/mail/feed/atom" |  grep -oPm1 "(?<=<title>)[^<]+" | sed '1d'))
 currentIPV4="${iparray[1]}"
 
 
 set -e
 {
-	    echo "Hallo Hasenfreunde,"
-		echo ""
+        echo "Subject: Hasenmail"
+        echo "Hallo Hasenfreunde,"
+        echo ""
         echo "die neue Adresse für die Rabbitcam lautet:"
         echo "http://${currentIPV4%?}:8081"
         echo ""
@@ -21,7 +22,7 @@ set -e
         echo "Viel Freude"
         echo "Anton und Sandra"
 
-        
+
 } > /tmp/email.txt
 
 set -e
@@ -31,12 +32,13 @@ echo "FromLineOverride=YES"
 echo "root=admin@example.com"
 echo "mailhub=smtp.gmail.com:587"
 echo "AuthUser=infotome65000@gmail.com"
-echo "AuthPass=${passwort}"        
+echo "AuthPass=${password}"
 } > /etc/ssmtp/ssmtp.conf
 
 IFS=',' read -r -a mailarray <<< "$mailaddresses"
 
 for element in "${mailarray[@]}"
 do
+    echo "${element}"
     sendmail "${element}"  < /tmp/email.txt
 done
